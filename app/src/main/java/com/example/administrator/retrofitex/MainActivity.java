@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         flyRouteBean.setPoints(pointsBeans);
         return flyRouteBean;
     }
+    //按钮json运行函数，直接在布局文件写了onclick属性，
     public void postStudent(View v){
         Student stu=new Student();
         stu.setId("20103177");
