@@ -19,5 +19,5 @@ public interface PostRoute {
    Call<FlyRouteBean> postFlyRoute(@Body RequestBody route);
     //接口地址：http://172.20.69.209:9665/api/Test/Info?IsGay={IsGay}
     @POST("api/Test/Info")
-    Call<ResponseBody> postStudent(@Body RequestBody route,@Query("IsGay") boolean IsGay);
+    Call<ResponseBody> postStudent(@Body RequestBody stu,@Query("IsGay") boolean IsGay);
 }
