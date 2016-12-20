@@ -8,6 +8,7 @@ import android.view.View;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.GsonConverterFactory;
@@ -127,5 +129,39 @@ public class MainActivity extends AppCompatActivity {
         pointsBeans.add(pointsBean);
         flyRouteBean.setPoints(pointsBeans);
         return flyRouteBean;
+    }
+    public void postStudent(View v){
+        Student stu=new Student();
+        stu.setId("20103177");
+        stu.setName("zpm");
+        stu.setAge(18);
+        Gson gson=new Gson();
+        String route= gson.toJson(stu);
+        Log.e("post", "//");
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl("http://172.20.69.209:9665/")
+                .addConverterFactory( GsonConverterFactory.create())
+                .build();
+        PostRoute postRoute=retrofit.create(PostRoute.class);
+        RequestBody body=RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),route);
+        Call<ResponseBody> call=postRoute.postStudent(body,true);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    Log.i("onResponse", response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("onFailure", t.getMessage());
+            }
+        });
+
+        Log.e("postjson", route);
     }
 }
