@@ -30,4 +30,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="json" />
+    <Button
+        android:onClick="retrofit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="各种retrofit"  />
 </LinearLayout>

@@ -165,4 +165,54 @@ public class MainActivity extends AppCompatActivity {
 
         Log.e("postjson", route);
     }
+    public void retrofit(View v){
+        //jsonAndField();
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl("http://apis.baidu.com/")
+                .addConverterFactory( GsonConverterFactory.create())
+                .build();
+        PostRoute postRoute=retrofit.create(PostRoute.class);
+        Call<ResponseBody> call=postRoute.getWeather("2f654b3b9212b440b4ab946cd989d4dd");
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    Log.i("onResponse", response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("onFailure", t.getMessage());
+            }
+        });
+    }
+
+    private void jsonAndField() {
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl("http://172.20.69.209:9665/")
+                .addConverterFactory( GsonConverterFactory.create())
+                .build();
+        PostRoute postRoute=retrofit.create(PostRoute.class);
+        Call<ResponseBody> call=postRoute.getHello("zhupumao",false);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    Log.i("onResponse", response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("onFailure", t.getMessage());
+            }
+        });
+    }
 }
